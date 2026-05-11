@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>팜올플러스 전문가 — 약사를 위한 전문가 매칭 플랫폼</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #3182F6;
+      --blue-dark: #1B64DA;
+      --blue-light: #EBF3FE;
+      --teal: #00C5A1;
+      --teal-light: #E6FAF6;
+      --navy: #191F28;
+      --gray-900: #1A1A2E;
+      --gray-800: #333D4B;
+      --gray-600: #6B7684;
+      --gray-400: #B0BAC8;
+      --gray-200: #E5E8EB;
+      --gray-100: #F2F4F6;
+      --white: #FFFFFF;
+      --bg: #F8FAFF;
+      --radius: 20px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 0 40px;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 20px; font-weight: 800; color: var(--navy);
+      text-decoration: none;
+    }
+    .nav-logo .dot { color: var(--blue); }
+    .nav-logo .badge {
+      font-size: 11px; font-weight: 700;
+      background: var(--blue); color: white;
+      padding: 2px 8px; border-radius: 20px;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 15px; font-weight: 500; color: var(--gray-600);
+      text-decoration: none; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--navy); }
+    .nav-actions { display: flex; gap: 12px; align-items: center; }
+    .btn-outline {
+      padding: 9px 20px; border-radius: 12px;
+      border: 1.5px solid var(--gray-200);
+      font-size: 14px; font-weight: 600; color: var(--navy);
+      background: white; cursor: pointer; text-decoration: none;
+      transition: all .2s;
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+    .btn-primary {
+      padding: 9px 20px; border-radius: 12px;
+      background: var(--blue); color: white; border: none;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      text-decoration: none; transition: all .2s;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0B1E4A 0%, #1A3A7A 40%, #0B2D5A 70%, #091730 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 120px 40px 80px;
+      position: relative; overflow: hidden;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 30%, rgba(49,130,246,.25) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 80% 60%, rgba(0,197,161,.2) 0%, transparent 60%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      color: #A8C8FF; font-size: 13px; font-weight: 600;
+      padding: 8px 16px; border-radius: 100px;
+      margin-bottom: 32px; position: relative; z-index: 1;
+    }
+    .hero-badge .ai-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--teal);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .6; transform: scale(1.3); }
+    }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 900; color: white; line-height: 1.15;
+      margin-bottom: 20px; position: relative; z-index: 1;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(90deg, #3182F6, #00C5A1);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255,255,255,.65); font-weight: 400;
+      line-height: 1.7; margin-bottom: 48px; position: relative; z-index: 1;
+    }
+
+    /* AI Search Bar */
+    .ai-search {
+      width: 100%; max-width: 680px;
+      background: white; border-radius: 20px;
+      padding: 8px 8px 8px 24px;
+      display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      position: relative; z-index: 1;
+      margin-bottom: 48px;
+    }
+    .ai-search-icon {
+      font-size: 22px; flex-shrink: 0;
+    }
+    .ai-search input {
+      flex: 1; border: none; outline: none;
+      font-size: 16px; font-family: inherit;
+      color: var(--navy); background: transparent;
+    }
+    .ai-search input::placeholder { color: var(--gray-400); }
+    .ai-search-btn {
+      background: linear-gradient(135deg, #3182F6, #00C5A1);
+      color: white; border: none; border-radius: 14px;
+      padding: 14px 28px; font-size: 15px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      transition: transform .2s, box-shadow .2s;
+      white-space: nowrap;
+    }
+    .ai-search-btn:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(49,130,246,.4); }
+
+    .hero-chips {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center; position: relative; z-index: 1;
+    }
+    .chip {
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+      color: rgba(255,255,255,.85); font-size: 13px; font-weight: 500;
+      padding: 8px 16px; border-radius: 100px;
+      cursor: pointer; transition: all .2s;
+    }
+    .chip:hover { background: rgba(255,255,255,.22); }
+
+    /* ── STATS ── */
+    .stats {
+      background: white;
+      padding: 48px 40px;
+      display: flex; justify-content: center; gap: 0;
+    }
+    .stat-item {
+      flex: 1; max-width: 280px;
+      text-align: center; padding: 24px 32px;
+      border-right: 1px solid var(--gray-200);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-size: 40px; font-weight: 900; color: var(--navy);
+      line-height: 1.1; margin-bottom: 6px;
+    }
+    .stat-num span { color: var(--blue); }
+    .stat-label { font-size: 14px; color: var(--gray-600); font-weight: 500; }
+
+    /* ── SECTION ── */
+    .section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      display: inline-block; font-size: 13px; font-weight: 700;
+      color: var(--blue); background: var(--blue-light);
+      padding: 6px 14px; border-radius: 100px; margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 900; line-height: 1.2; color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: 17px; color: var(--gray-600); font-weight: 400;
+      line-height: 1.7; margin-bottom: 48px;
+    }
+
+    /* ── CATEGORY GRID ── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .cat-card {
+      background: white; border-radius: var(--radius);
+      padding: 28px 24px; cursor: pointer;
+      border: 2px solid transparent;
+      transition: all .25s;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 16px;
+    }
+    .cat-card:hover {
+      border-color: var(--blue); transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(49,130,246,.15);
+    }
+    .cat-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+    }
+    .cat-name { font-size: 16px; font-weight: 700; color: var(--navy); }
+    .cat-count { font-size: 13px; color: var(--gray-600); font-weight: 500; margin-top: 2px; }
+    .cat-arrow {
+      margin-top: auto; font-size: 20px; color: var(--gray-400);
+      transition: transform .2s;
+    }
+    .cat-card:hover .cat-arrow { transform: translateX(4px); color: var(--blue); }
+
+    /* ── AI SECTION ── */
+    .ai-section-wrap {
+      background: linear-gradient(135deg, #0B1E4A, #1A3A7A);
+      border-radius: 32px; overflow: hidden;
+      margin: 0 40px 80px;
+    }
+    .ai-section-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 72px 64px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .ai-text .section-label { color: #A8C8FF; background: rgba(49,130,246,.2); }
+    .ai-text .section-title { color: white; }
+    .ai-text .section-sub { color: rgba(255,255,255,.65); margin-bottom: 32px; }
+    .ai-steps { display: flex; flex-direction: column; gap: 20px; }
+    .ai-step {
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .ai-step-num {
+      width: 36px; height: 36px; border-radius: 12px;
+      background: rgba(49,130,246,.3); border: 1px solid rgba(49,130,246,.5);
+      color: #A8C8FF; font-size: 14px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .ai-step-text strong { display: block; color: white; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .ai-step-text span { color: rgba(255,255,255,.55); font-size: 13px; }
+
+    .ai-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 24px; padding: 32px;
+    }
+    .ai-chat { display: flex; flex-direction: column; gap: 14px; }
+    .msg {
+      max-width: 80%; padding: 14px 18px;
+      border-radius: 18px; font-size: 14px; line-height: 1.6; font-weight: 500;
+    }
+    .msg.bot {
+      background: rgba(255,255,255,.1); color: rgba(255,255,255,.9);
+      border-bottom-left-radius: 4px; align-self: flex-start;
+    }
+    .msg.user {
+      background: var(--blue); color: white;
+      border-bottom-right-radius: 4px; align-self: flex-end;
+    }
+    .typing {
+      display: flex; gap: 5px; padding: 14px 18px;
+      background: rgba(255,255,255,.08); border-radius: 18px;
+      border-bottom-left-radius: 4px; align-self: flex-start;
+    }
+    .typing span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(255,255,255,.5);
+      animation: typing 1.4s infinite;
+    }
+    .typing span:nth-child(2) { animation-delay: .2s; }
+    .typing span:nth-child(3) { animation-delay: .4s; }
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); opacity: .5; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    .ai-input-row {
+      display: flex; gap: 10px; margin-top: 20px;
+    }
+    .ai-input {
+      flex: 1; background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15); border-radius: 12px;
+      padding: 12px 16px; color: rgba(255,255,255,.6);
+      font-size: 14px; font-family: inherit;
+    }
+    .ai-send {
+      background: var(--blue); border: none; border-radius: 12px;
+      width: 44px; height: 44px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; transition: background .2s;
+    }
+    .ai-send:hover { background: var(--blue-dark); }
+
+    /* ── HOW IT WORKS ── */
+    .hiw-wrap { background: white; padding: 80px 0; }
+    .hiw-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+      margin-top: 48px;
+    }
+    .step-card {
+      padding: 36px 32px; border-radius: var(--radius);
+      background: var(--gray-100); position: relative;
+    }
+    .step-num {
+      font-size: 13px; font-weight: 800; color: var(--blue);
+      background: var(--blue-light); width: 36px; height: 36px;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .step-icon { font-size: 36px; margin-bottom: 16px; }
+    .step-card h3 { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+    .step-card p { font-size: 15px; color: var(--gray-600); line-height: 1.7; }
+    .step-arrow {
+      position: absolute; top: 50%; right: -20px;
+      transform: translateY(-50%); font-size: 24px; color: var(--gray-300); z-index: 1;
+    }
+
+    /* ── EXPERT CARDS ── */
+    .experts-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .expert-card {
+      background: white; border-radius: var(--radius);
+      padding: 28px; box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      transition: all .25s; cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .expert-card:hover { transform: translateY(-4px); border-color: var(--blue); box-shadow: var(--shadow-lg); }
+    .expert-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .expert-avatar {
+      width: 52px; height: 52px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; flex-shrink: 0;
+    }
+    .expert-info h4 { font-size: 16px; font-weight: 800; color: var(--navy); }
+    .expert-info span { font-size: 13px; color: var(--gray-600); }
+    .expert-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .tag {
+      font-size: 12px; font-weight: 600; padding: 4px 10px;
+      border-radius: 100px; background: var(--gray-100); color: var(--gray-800);
+    }
+    .tag.blue { background: var(--blue-light); color: var(--blue); }
+    .expert-stats { display: flex; gap: 16px; }
+    .expert-stat { font-size: 13px; color: var(--gray-600); }
+    .expert-stat strong { color: var(--navy); font-weight: 700; }
+    .expert-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--gray-200); }
+    .expert-price { font-size: 18px; font-weight: 800; color: var(--navy); }
+    .expert-price small { font-size: 13px; font-weight: 400; color: var(--gray-600); }
+    .btn-sm {
+      padding: 8px 18px; border-radius: 10px; font-size: 13px; font-weight: 700;
+      background: var(--blue); color: white; border: none; cursor: pointer;
+      font-family: inherit; transition: all .2s;
+    }
+    .btn-sm:hover { background: var(--blue-dark); }
+    .stars { color: #F5A623; font-size: 13px; }
+
+    /* ── BANNER ── */
+    .banner-wrap { padding: 0 40px 80px; }
+    .banner {
+      background: linear-gradient(135deg, var(--teal), #00A98F);
+      border-radius: 28px; padding: 56px 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    }
+    .banner-text h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 900; color: white; margin-bottom: 10px; }
+    .banner-text p { font-size: 16px; color: rgba(255,255,255,.8); }
+    .banner-btns { display: flex; gap: 14px; flex-shrink: 0; }
+    .btn-white {
+      background: white; color: var(--teal); border: none;
+      padding: 14px 28px; border-radius: 14px;
+      font-size: 15px; font-weight: 800; cursor: pointer;
+      font-family: inherit; transition: all .2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+    .btn-ghost-white {
+      background: rgba(255,255,255,.2); color: white; border: 2px solid rgba(255,255,255,.4);
+      padding: 14px 28px; border-radius: 14px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: all .2s;
+    }
+    .btn-ghost-white:hover { background: rgba(255,255,255,.3); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,.5);
+      padding: 56px 40px 40px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px;
+    }
+    .footer-logo { font-size: 20px; font-weight: 900; color: white; margin-bottom: 12px; }
+    .footer-logo .dot { color: var(--blue); }
+    .footer-desc { font-size: 14px; line-height: 1.8; }
+    .footer-col h5 { color: white; font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { color: rgba(255,255,255,.5); font-size: 14px; text-decoration: none; transition: color .2s; }
+    .footer-col a:hover { color: white; }
+    .footer-bottom {
+      max-width: 1200px; margin: 40px auto 0;
+      padding-top: 28px; border-top: 1px solid rgba(255,255,255,.08);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom p { font-size: 13px; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(0,0,0,.5); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: white; border-radius: 28px;
+      width: min(640px, 95vw); max-height: 90vh;
+      overflow-y: auto; padding: 40px;
+      animation: slideUp .3s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+    .modal-header h3 { font-size: 24px; font-weight: 800; color: var(--navy); }
+    .modal-close {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--gray-100); border: none; cursor: pointer;
+      font-size: 18px; display: flex; align-items: center; justify-content: center;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 14px 16px;
+      border: 1.5px solid var(--gray-200); border-radius: 14px;
+      font-size: 15px; font-family: inherit; color: var(--navy);
+      outline: none; transition: border-color .2s; background: white;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--blue); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .ai-suggest {
+      background: var(--blue-light); border-radius: 14px;
+      padding: 16px 18px; margin-bottom: 20px;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .ai-suggest .ai-icon { font-size: 22px; flex-shrink: 0; }
+    .ai-suggest p { font-size: 13px; color: var(--blue-dark); line-height: 1.6; }
+    .ai-suggest strong { font-weight: 700; }
+    .cat-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .cat-pill {
+      padding: 8px 16px; border-radius: 100px;
+      border: 1.5px solid var(--gray-200); background: white;
+      font-size: 14px; font-weight: 500; cursor: pointer;
+      transition: all .2s; color: var(--navy);
+    }
+    .cat-pill.selected { border-color: var(--blue); background: var(--blue-light); color: var(--blue); font-weight: 700; }
+    .form-submit {
+      width: 100%; padding: 16px; border-radius: 16px;
+      background: linear-gradient(135deg, var(--blue), #00C5A1);
+      color: white; border: none; font-size: 16px; font-weight: 800;
+      cursor: pointer; font-family: inherit; transition: all .2s; margin-top: 8px;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(49,130,246,.4); }
+
+    /* ── ANIMATIONS ── */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all .6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .section { padding: 60px 24px; }
+      .ai-section-inner { grid-template-columns: 1fr; padding: 48px 32px; gap: 40px; }
+      .ai-section-wrap { margin: 0 24px 60px; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .step-arrow { display: none; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .banner { flex-direction: column; padding: 40px 32px; }
+      .banner-btns { flex-direction: column; width: 100%; }
+      .banner-wrap { padding: 0 24px 60px; }
+      .stats { flex-wrap: wrap; padding: 32px 24px; }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--gray-200); }
+      .stat-item:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">팜올플러스<span class="dot">.</span> <span class="badge">전문가</span></a>
+  <ul class="nav-links">
+    <li><a href="#">전문가 찾기</a></li>
+    <li><a href="#">AI 견적 요청</a></li>
+    <li><a href="#">전문가 등록</a></li>
+    <li><a href="#">이용 후기</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-outline">로그인</a>
+    <button class="btn-primary" onclick="openModal()">견적 요청하기</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <div class="ai-dot"></div>
+    AI 기반 전문가 매칭 서비스
+  </div>
+  <h1>약사님을 위한<br/><span class="highlight">전문가 파트너</span>를 찾으세요</h1>
+  <p class="hero-sub">세무·금융·법률·인테리어·약국경영까지<br/>약사 전문 파트너를 AI로 빠르게 연결해드립니다</p>
+
+  <div class="ai-search">
+    <span class="ai-search-icon">🔍</span>
+    <input type="text" placeholder="어떤 도움이 필요하신가요? ex. 약국 세금 신고 도움받고 싶어요" id="heroSearch" />
+    <button class="ai-search-btn" onclick="openModalWithSearch()">✨ AI 견적 요청</button>
+  </div>
+
+  <div class="hero-chips">
+    <span class="chip" onclick="setChip('약국 세무 신고')">💰 세무 신고</span>
+    <span class="chip" onclick="setChip('약국 인테리어 리모델링')">🏗️ 인테리어</span>
+    <span class="chip" onclick="setChip('약국 대출 상담')">🏦 대출 상담</span>
+    <span class="chip" onclick="setChip('약국 경영 컨설팅')">📊 약국 경영</span>
+    <span class="chip" onclick="setChip('노무 급여 계산')">⚖️ 노무·법률</span>
+    <span class="chip" onclick="setChip('라이프 여행 설계')">✈️ 라이프</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item fade-in">
+    <div class="stat-num"><span>2,400</span>+</div>
+    <div class="stat-label">등록 약사 회원</div>
+  </div>
+  <div class="stat-item fade-in">
+    <div class="stat-num"><span>180</span>+</div>
+    <div class="stat-label">검증된 전문가</div>
+  </div>
+  <div class="stat-item fade-in">
+    <div class="stat-num"><span>4.9</span>★</div>
+    <div class="stat-label">평균 만족도</div>
+  </div>
+  <div class="stat-item fade-in">
+    <div class="stat-num"><span>15</span>분</div>
+    <div class="stat-label">평균 매칭 시간</div>
+  </div>
+</div>
+
+<!-- CATEGORY -->
+<section class="section fade-in">
+  <div class="section-label">전문가 카테고리</div>
+  <h2 class="section-title">약사님께 필요한<br/>모든 전문가</h2>
+  <p class="section-sub">약사 전용 플랫폼에서만 만날 수 있는 검증된 전문가를 찾아보세요</p>
+
+  <div class="cat-grid">
+    <a class="cat-card" href="#" onclick="openModal(); return false;">
+      <div class="cat-icon" style="background:#FFF3E0">💰</div>
+      <div>
+        <div class="cat-name">세무·회계</div>
+        <div class="cat-count">전문가 38명</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#" onclick="openModal(); return false;">
+      <div class="cat-icon" style="background:#E3F2FD">🏦</div>
+      <div>
+        <div class="cat-name">금융·대출</div>
+        <div class="cat-count">전문가 24명</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#" onclick="openModal(); return false;">
+      <div class="cat-icon" style="background:#E8F5E9">🚗</div>
+      <div>
+        <div class="cat-name">차량 리스·렌탈</div>
+        <div class="cat-count">전문가 12명</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#" onclick="openModal(); return false;">
+      <div class="cat-icon" style="background:#FCE4EC">💳</div>
+      <div>
+        <div class="cat-name">카드·재무설계</div>
+        <div class="cat-count">전문가 19명</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#" onclick="openModal(); return false;">
+      <div class="cat-icon" style="background:#EDE7F6">⚖️</div>
+      <div>
+        <div class="cat-name">법률·노무</div>
+        <div class="cat-count">전문가 21명</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#" onclick="openModal(); return false;">
+      <div class="cat-icon" style="background:#E0F7FA">🏗️</div>
+      <div>
+        <div class="cat-name">약국 인테리어</div>
+        <div class="cat-count">전문가 31명</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#" onclick="openModal(); return false;">
+      <div class="cat-icon" style="background:#F1F8E9">📊</div>
+      <div>
+        <div class="cat-name">약국 경영 컨설팅</div>
+        <div class="cat-count">전문가 17명</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#" onclick="openModal(); return false;">
+      <div class="cat-icon" style="background:#FFF8E1">💍</div>
+      <div>
+        <div class="cat-name">결혼·연애 라이프</div>
+        <div class="cat-count">전문가 9명</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#" onclick="openModal(); return false;">
+      <div class="cat-icon" style="background:#FFEBEE">🥗</div>
+      <div>
+        <div class="cat-name">도시락·케이터링</div>
+        <div class="cat-count">전문가 8명</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#" onclick="openModal(); return false;">
+      <div class="cat-icon" style="background:#E8EAF6">✈️</div>
+      <div>
+        <div class="cat-name">여행 설계</div>
+        <div class="cat-count">전문가 11명</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- AI SECTION -->
+<div class="ai-section-wrap fade-in">
+  <div class="ai-section-inner">
+    <div class="ai-text">
+      <div class="section-label">✨ AI 견적 요청</div>
+      <h2 class="section-title">말만 하세요,<br/>AI가 알아서<br/>매칭해드려요</h2>
+      <p class="section-sub">약사님의 상황을 자연어로 설명하면<br/>AI가 가장 적합한 전문가를 찾고<br/>견적까지 비교해드립니다</p>
+      <div class="ai-steps">
+        <div class="ai-step">
+          <div class="ai-step-num">01</div>
+          <div class="ai-step-text">
+            <strong>상황을 자유롭게 입력</strong>
+            <span>"약국 개설 준비 중인데 세무·인테리어 동시에 알아보고 싶어요"</span>
+          </div>
+        </div>
+        <div class="ai-step">
+          <div class="ai-step-num">02</div>
+          <div class="ai-step-text">
+            <strong>AI가 전문가 3~5인 추천</strong>
+            <span>리뷰·경력·가격을 분석해 최적 후보를 선정합니다</span>
+          </div>
+        </div>
+        <div class="ai-step">
+          <div class="ai-step-num">03</div>
+          <div class="ai-step-text">
+            <strong>비교 후 바로 상담 시작</strong>
+            <span>견적 비교 후 원하는 전문가와 채팅 또는 미팅 예약</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-card">
+      <div class="ai-chat" id="aiChat">
+        <div class="msg bot">안녕하세요 약사님! 어떤 도움이 필요하신가요? 편하게 말씀해주세요 😊</div>
+        <div class="msg user">약국 개설 앞두고 있는데 세무사 찾고 있어요</div>
+        <div class="msg bot">약국 개설 축하드려요! 개설 세무 처리는 초기 비용 절감에 매우 중요하죠. 혹시 위치(지역)와 예상 개설 시기도 알려주실 수 있나요?</div>
+        <div class="typing"><span></span><span></span><span></span></div>
+      </div>
+      <div class="ai-input-row">
+        <input class="ai-input" placeholder="메시지를 입력하세요..." id="aiInput" onkeydown="handleAiKey(event)" />
+        <button class="ai-send" onclick="sendAiMsg()">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="hiw-wrap">
+  <div class="hiw-inner">
+    <div style="text-align:center">
+      <div class="section-label">이용 방법</div>
+      <h2 class="section-title">3단계로 끝나요</h2>
+      <p class="section-sub">복잡한 절차 없이 빠르게 전문가와 연결됩니다</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card fade-in">
+        <div class="step-num">01</div>
+        <div class="step-icon">🗣️</div>
+        <h3>요청서 작성</h3>
+        <p>필요한 서비스와 상황을 간단히 입력하세요. AI가 도와드립니다.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-num">02</div>
+        <div class="step-icon">🤝</div>
+        <h3>전문가 매칭</h3>
+        <p>15분 내 최대 5명의 검증된 전문가에게서 맞춤 견적을 받아보세요.</p>
+        <div class="step-arrow">→</div>
+      </div>
+      <div class="step-card fade-in">
+        <div class="step-num">03</div>
+        <div class="step-icon">✅</div>
+        <h3>상담 & 계약</h3>
+        <p>프로필·리뷰를 비교하고 마음에 드는 전문가와 바로 상담하세요.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED EXPERTS -->
+<section class="section fade-in">
+  <div class="section-label">인기 전문가</div>
+  <h2 class="section-title">약사님들이 선택한<br/>베스트 전문가</h2>
+  <p class="section-sub" style="margin-bottom:36px">실제 약사 고객의 리뷰로 검증된 TOP 전문가입니다</p>
+
+  <div class="experts-grid">
+    <div class="expert-card">
+      <div class="expert-head">
+        <div class="expert-avatar" style="background:#FFF3E0">👨‍💼</div>
+        <div class="expert-info">
+          <h4>김○○ 세무사</h4>
+          <span>약국 세무 전문 · 경력 12년</span>
+        </div>
+      </div>
+      <div class="expert-tags">
+        <span class="tag blue">세무·회계</span>
+        <span class="tag">약국 개설</span>
+        <span class="tag">법인 전환</span>
+      </div>
+      <div class="expert-stats">
+        <div class="expert-stat"><strong>98%</strong> 응답률</div>
+        <div class="expert-stat"><strong>247</strong>건 완료</div>
+        <div class="expert-stat"><span class="stars">★★★★★</span> 4.9</div>
+      </div>
+      <div class="expert-footer">
+        <div class="expert-price">50,000원<small>/1회 상담</small></div>
+        <button class="btn-sm" onclick="openModal()">견적 요청</button>
+      </div>
+    </div>
+
+    <div class="expert-card">
+      <div class="expert-head">
+        <div class="expert-avatar" style="background:#E3F2FD">👩‍💼</div>
+        <div class="expert-info">
+          <h4>이○○ 재무설계사</h4>
+          <span>약사 특화 금융 · 경력 8년</span>
+        </div>
+      </div>
+      <div class="expert-tags">
+        <span class="tag blue">금융·대출</span>
+        <span class="tag">재무설계</span>
+        <span class="tag">카드 최적화</span>
+      </div>
+      <div class="expert-stats">
+        <div class="expert-stat"><strong>95%</strong> 응답률</div>
+        <div class="expert-stat"><strong>183</strong>건 완료</div>
+        <div class="expert-stat"><span class="stars">★★★★★</span> 4.8</div>
+      </div>
+      <div class="expert-footer">
+        <div class="expert-price">무료<small> 초기 상담</small></div>
+        <button class="btn-sm" onclick="openModal()">견적 요청</button>
+      </div>
+    </div>
+
+    <div class="expert-card">
+      <div class="expert-head">
+        <div class="expert-avatar" style="background:#E8F5E9">🏗️</div>
+        <div class="expert-info">
+          <h4>박○○ 인테리어</h4>
+          <span>약국 인테리어 전문 · 경력 15년</span>
+        </div>
+      </div>
+      <div class="expert-tags">
+        <span class="tag blue">약국 인테리어</span>
+        <span class="tag">리모델링</span>
+        <span class="tag">개설 설계</span>
+      </div>
+      <div class="expert-stats">
+        <div class="expert-stat"><strong>100%</strong> 응답률</div>
+        <div class="expert-stat"><strong>312</strong>건 완료</div>
+        <div class="expert-stat"><span class="stars">★★★★★</span> 5.0</div>
+      </div>
+      <div class="expert-footer">
+        <div class="expert-price">견적 요청 후<small> 안내</small></div>
+        <button class="btn-sm" onclick="openModal()">견적 요청</button>
+      </div>
+    </div>
+
+    <div class="expert-card">
+      <div class="expert-head">
+        <div class="expert-avatar" style="background:#EDE7F6">⚖️</div>
+        <div class="expert-info">
+          <h4>최○○ 노무사</h4>
+          <span>약국 고용·노무 전문 · 경력 10년</span>
+        </div>
+      </div>
+      <div class="expert-tags">
+        <span class="tag blue">법률·노무</span>
+        <span class="tag">직원 관리</span>
+        <span class="tag">4대보험</span>
+      </div>
+      <div class="expert-stats">
+        <div class="expert-stat"><strong>97%</strong> 응답률</div>
+        <div class="expert-stat"><strong>156</strong>건 완료</div>
+        <div class="expert-stat"><span class="stars">★★★★★</span> 4.9</div>
+      </div>
+      <div class="expert-footer">
+        <div class="expert-price">30,000원<small>/1회 상담</small></div>
+        <button class="btn-sm" onclick="openModal()">견적 요청</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner-wrap fade-in">
+  <div class="banner">
+    <div class="banner-text">
+      <h2>전문가로 등록하고<br/>약사 고객을 만나보세요</h2>
+      <p>2,400명 이상의 약사 회원에게 서비스를 제공할 수 있는 기회</p>
+    </div>
+    <div class="banner-btns">
+      <button class="btn-white">전문가 등록하기</button>
+      <button class="btn-ghost-white">자세히 알아보기</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">팜올플러스<span class="dot">.</span></div>
+      <p class="footer-desc">약사를 위한 전문가 매칭 플랫폼<br/>팜올플러스 전문가 서비스는<br/>약사님의 모든 전문가 니즈를<br/>한 곳에서 해결합니다.</p>
+    </div>
+    <div class="footer-col">
+      <h5>서비스</h5>
+      <ul>
+        <li><a href="#">전문가 찾기</a></li>
+        <li><a href="#">AI 견적 요청</a></li>
+        <li><a href="#">전문가 등록</a></li>
+        <li><a href="#">이용 후기</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>카테고리</h5>
+      <ul>
+        <li><a href="#">세무·회계</a></li>
+        <li><a href="#">금융·대출</a></li>
+        <li><a href="#">법률·노무</a></li>
+        <li><a href="#">약국 인테리어</a></li>
+        <li><a href="#">약국 경영</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>고객지원</h5>
+      <ul>
+        <li><a href="#">공지사항</a></li>
+        <li><a href="#">자주 묻는 질문</a></li>
+        <li><a href="#">1:1 문의</a></li>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 팜올플러스. All rights reserved.</p>
+    <p>고객센터: 1588-0000 | cs@pharmallplus.co.kr</p>
+  </div>
+</footer>
+
+<!-- AI ESTIMATE MODAL -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h3>✨ AI 견적 요청</h3>
+        <p style="font-size:14px;color:var(--gray-600);margin-top:4px">AI가 최적의 전문가를 매칭해드립니다</p>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <div class="ai-suggest">
+      <div class="ai-icon">🤖</div>
+      <p><strong>AI 자동 분석:</strong> 입력하신 내용을 바탕으로 가장 적합한 전문가 카테고리를 추천드립니다. 아래에서 선택하거나 자유롭게 수정하세요.</p>
+    </div>
+
+    <div class="form-group">
+      <label>어떤 도움이 필요하신가요?</label>
+      <textarea id="requestDesc" placeholder="예) 약국 개설을 앞두고 세무 처리와 인테리어 견적을 알아보고 싶어요. 서울 강남 예정이고 3개월 안에 오픈할 계획입니다." rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>서비스 카테고리 선택 (복수 선택 가능)</label>
+      <div class="cat-pills">
+        <span class="cat-pill" onclick="togglePill(this)">💰 세무·회계</span>
+        <span class="cat-pill" onclick="togglePill(this)">🏦 금융·대출</span>
+        <span class="cat-pill" onclick="togglePill(this)">🚗 차량 리스·렌탈</span>
+        <span class="cat-pill" onclick="togglePill(this)">💳 카드·재무설계</span>
+        <span class="cat-pill" onclick="togglePill(this)">⚖️ 법률·노무</span>
+        <span class="cat-pill" onclick="togglePill(this)">🏗️ 약국 인테리어</span>
+        <span class="cat-pill" onclick="togglePill(this)">📊 약국 경영</span>
+        <span class="cat-pill" onclick="togglePill(this)">💍 결혼·연애</span>
+        <span class="cat-pill" onclick="togglePill(this)">🥗 도시락·케이터링</span>
+        <span class="cat-pill" onclick="togglePill(this)">✈️ 여행 설계</span>
+      </div>
+    </div>
+
+    <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <label>이름</label>
+        <input type="text" placeholder="홍길동" />
+      </div>
+      <div>
+        <label>연락처</label>
+        <input type="tel" placeholder="010-0000-0000" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>지역</label>
+      <select>
+        <option>지역을 선택하세요</option>
+        <option>서울</option><option>경기</option><option>인천</option>
+        <option>부산</option><option>대구</option><option>광주</option>
+        <option>대전</option><option>울산</option><option>세종</option>
+        <option>강원</option><option>충북</option><option>충남</option>
+        <option>전북</option><option>전남</option><option>경북</option>
+        <option>경남</option><option>제주</option>
+      </select>
+    </div>
+
+    <button class="form-submit" onclick="submitRequest()">✨ AI 견적 요청 보내기 — 무료</button>
+    <p style="text-align:center;font-size:12px;color:var(--gray-400);margin-top:12px">견적 요청은 완전 무료입니다. 전문가가 15분 내 연락드립니다.</p>
+  </div>
+</div>
+
+<script>
+  // Scroll animations
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Modal
+  function openModal() { document.getElementById('modal').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow=''; }
+  function handleOverlayClick(e) { if (e.target === e.currentTarget) closeModal(); }
+  function openModalWithSearch() {
+    const q = document.getElementById('heroSearch').value;
+    if (q) document.getElementById('requestDesc').value = q;
+    openModal();
+  }
+
+  // Category pills
+  function togglePill(el) { el.classList.toggle('selected'); }
+
+  // Hero chips
+  function setChip(text) {
+    document.getElementById('heroSearch').value = text;
+    document.getElementById('heroSearch').focus();
+  }
+
+  // AI chat simulation
+  const aiReplies = [
+    "지역 정보 감사해요! 해당 지역 약국 전문 세무사 3명을 찾았어요. 견적을 비교해 보시겠어요?",
+    "네, 바로 매칭해드릴게요! 평균 응답 시간은 10분이에요 😊",
+    "더 궁금한 사항이 있으시면 말씀해주세요. 최적의 전문가를 찾아드릴게요!",
+  ];
+  let replyIdx = 0;
+
+  function sendAiMsg() {
+    const input = document.getElementById('aiInput');
+    const chat = document.getElementById('aiChat');
+    const text = input.value.trim();
+    if (!text) return;
+
+    const userMsg = document.createElement('div');
+    userMsg.className = 'msg user'; userMsg.textContent = text;
+    chat.appendChild(userMsg);
+    input.value = '';
+
+    const typing = document.createElement('div');
+    typing.className = 'typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    chat.appendChild(typing);
+    chat.scrollTop = chat.scrollHeight;
+
+    setTimeout(() => {
+      typing.remove();
+      const botMsg = document.createElement('div');
+      botMsg.className = 'msg bot';
+      botMsg.textContent = aiReplies[replyIdx % aiReplies.length];
+      replyIdx++;
+      chat.appendChild(botMsg);
+      chat.scrollTop = chat.scrollHeight;
+    }, 1200);
+  }
+
+  function handleAiKey(e) { if (e.key === 'Enter') sendAiMsg(); }
+
+  // Submit
+  function submitRequest() {
+    alert('견적 요청이 접수되었습니다! 15분 내로 전문가가 연락드릴 예정입니다. 감사합니다 😊');
+    closeModal();
+  }
+
+  // Keyboard shortcut
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
